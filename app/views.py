@@ -13,6 +13,15 @@ from graphenebase.account import PasswordKey
 log = app.logger
 
 
+from graphenebase.base58 import known_prefixes
+from bitsharesbase.chains import known_chains
+
+known_prefixes.append('UZDE')
+known_chains['UZDE'] = {}
+known_chains['UZDE']['core_symbol'] = 'UZDE'
+known_chains['UZDE']['prefix'] = 'UZDE'
+known_chains['UZDE']['chain_id'] = 'd04cbbace494915fe0d78e49ae9bb65fc79ca8b6d4f8c26b1b973a230b2d1e73'
+
 def api_error(msg):
     return jsonify({"error": {"base": [msg]}})
 
@@ -57,6 +66,7 @@ def tapbasic(referrer):
         nobroadcast=config.nobroadcast,
         keys=[config.wif]
     )
+    
 
     try:
         Account(account["name"], bitshares_instance=bitshares)

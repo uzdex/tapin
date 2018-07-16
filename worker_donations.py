@@ -36,8 +36,17 @@ log_handler_stdout.setFormatter(formatter)
 log.addHandler(log_handler_mail)
 log.addHandler(log_handler_stdout)
 
+from graphenebase.base58 import known_prefixes
+from bitsharesbase.chains import known_chains
+
+known_prefixes.append('UZDE')
+known_chains['UZDE'] = {}
+known_chains['UZDE']['core_symbol'] = 'UZDE'
+known_chains['UZDE']['prefix'] = 'UZDE'
+known_chains['UZDE']['chain_id'] = 'd04cbbace494915fe0d78e49ae9bb65fc79ca8b6d4f8c26b1b973a230b2d1e73'
+
 bitshares = BitShares(
-    "wss://node.testnet.bitshares.eu",
+    config["witness_url"],
     keys=[config["wif"]],
     nobroadcast=False
 )
